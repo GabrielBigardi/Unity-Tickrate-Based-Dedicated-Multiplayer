@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public int id;
-    public string username;
-    public float health;
-    public float maxHealth = 100f;
-    public int itemCount = 0;
-    public SpriteRenderer model;
+    private int _id;
+    private string _username;
+
+    private SpriteRenderer _model;
+
+    private float _maxHealth = 100f;
+    private float _curHealth;
 
     public void Initialize(int _id, string _username)
     {
-        id = _id;
-        username = _username;
-        health = maxHealth;
+        this._id = _id;
+        this._username = _username;
+        _curHealth = _maxHealth;
     }
 
     public void SetHealth(float _health)
     {
-        health = _health;
+        _curHealth = _health;
 
-        if (health <= 0f)
+        if (_curHealth <= 0f)
         {
             Die();
         }
@@ -30,12 +31,12 @@ public class PlayerManager : MonoBehaviour
 
     public void Die()
     {
-        model.enabled = false;
+        _model.enabled = false;
     }
 
     public void Respawn()
     {
-        model.enabled = true;
-        SetHealth(maxHealth);
+        _model.enabled = true;
+        SetHealth(_maxHealth);
     }
 }

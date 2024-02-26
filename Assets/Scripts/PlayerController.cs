@@ -7,17 +7,20 @@ public class PlayerController : MonoBehaviour
     //public Transform camTransform;
     public Vector2 mov;
     public Rigidbody2D rgbd;
-    public float moveSpeed;
 
     private void Update()
     {
         mov = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            ClientSend.PlayerAnimation(1);
+        }
     }
 
     private void FixedUpdate()
     {
         SendInputToServer();
-        //rgbd.MovePosition(rgbd.position + moveSpeed * Time.deltaTime * mov);
     }
 
     /// <summary>Sends player input to the server.</summary>
@@ -29,7 +32,6 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.S),
             Input.GetKey(KeyCode.D),
             Input.GetKey(KeyCode.A),
-            Input.GetKey(KeyCode.Space)
         };
 
         ClientSend.PlayerMovement(_inputs);
